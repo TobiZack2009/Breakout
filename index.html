@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="preload" as="audio" href="assets/button.ogg">
+    <link rel="preload" as="audio" href="assets/game_music.ogg"></link>
+    <meta charset="utf-8" />
+    <title>Breakout</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            background: #eee;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            transform-origin: 0 0;
+            background-color: aqua;
+        }
+
+        html,  body{
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="480" height="320"></canvas>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
