@@ -3,7 +3,8 @@
 
 <head>
     <link rel="preload" as="audio" href="assets/button.ogg">
-    <link rel="preload" as="audio" href="assets/game_music.ogg"></link>
+    <link rel="preload" as="audio" href="assets/game_music.ogg">
+    </link>
     <meta charset="utf-8" />
     <title>Breakout</title>
     <style>
@@ -12,7 +13,7 @@
             margin: 0;
         }
 
-        canvas {
+        #canvas-div {
             background: #eee;
             display: block;
             position: absolute;
@@ -21,17 +22,22 @@
             -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
             transform-origin: 0 0;
+           
+        }
+
+        canvas {
             background-color: aqua;
         }
 
-        html,  body{
+        html,
+        body {
             background-color: black;
         }
     </style>
 </head>
 
 <body>
-    <canvas id="myCanvas" width="480" height="320"></canvas>
+    <div id="canvas-div"></div>
 
     <script src="game.js"></script>
     <script src="script.js"></script>

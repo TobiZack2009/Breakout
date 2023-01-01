@@ -1,4 +1,5 @@
-let BreakoutGame = function (canvas) {
+let BreakoutGame = function () {
+  let canvas=document.createElement("canvas")
   let ctx = canvas.getContext("2d");
   let ballRadius = 10;
   let x = canvas.width / 2;
@@ -23,13 +24,19 @@ let BreakoutGame = function (canvas) {
   let bricks = [];
   let gameAudio = new Audio();
   let brickAudio = new Audio();
+  let paddle={x:(canvas.width - paddleWidth) / 2,xVel:0,width:75}
 
+  canvas.width=480
+  canvas.height=320
   gameAudio.src = "assets/game_music.ogg";
   brickAudio.src = "assets/button.ogg";
   gameAudio.play()
   gameAudio.loop=true
 
-  resizeHandler();
+  this.canvas=canvas
+  this.brickAudio=brickAudio
+  this.gameAudio=gameAudio
+
 
   for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
@@ -41,18 +48,10 @@ let BreakoutGame = function (canvas) {
   addEventListener("keydown", keyDownHandler);
   addEventListener("keyup", keyUpHandler);
   addEventListener("mousemove", mouseMoveHandler);
-  addEventListener("touchstart", touchStartHandler);
+  canvas.addEventListener("touchstart", touchStartHandler);
   addEventListener("touchend", touchEndHandler);
   addEventListener("click", clickHandler);
 
-  function resizeHandler() {
-    let scaleX = innerWidth / canvas.width;
-    let scaleY = innerHeight / canvas.height;
-    let scaleToFit = Math.min(scaleX, scaleY);
-    let scaleToCover = Math.max(scaleX, scaleY);
-
-    canvas.style.transform = `scale(${scaleToFit})  translate(-50%, -50%)`;
-  }
   function keyDownHandler(e) {
     if (e.code == "ArrowRight") {
       rightPressed = true;
@@ -76,7 +75,7 @@ let BreakoutGame = function (canvas) {
   function touchStartHandler(e) {
     e.preventDefault();
     gameAudio.play();
-    let relativeX = e.targetTouches[0].screenX - canvas.offsetLeft;
+    let relativeX = e.targetTouches[0].clientX /scaleToFit;
     if (relativeX > 0 && relativeX < canvas.width) {
       if (relativeX < paddleX) {
         paddleDirection = "left";
@@ -108,8 +107,8 @@ let BreakoutGame = function (canvas) {
             brickAudio.play();
             score++;
             if (score == brickRowCount * brickColumnCount) {
-              alert("YOU WIN, CONGRATS!");
-              document.location.reload();
+            //  alert("YOU WIN, CONGRATS!");
+            //  document.location.reload();
             }
           }
         }
@@ -120,7 +119,7 @@ let BreakoutGame = function (canvas) {
   function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "pink";
     ctx.fill();
     ctx.closePath();
   }
